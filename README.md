@@ -15,49 +15,49 @@ $ open https://git-scm.com
 - [x] 5. Составить отчет и отправить ссылку личным сообщением в **Slack**
 
 ## Tutorial
-
-```ShellSession
-$ export GITHUB_USERNAME=YashaKorolev
-$ export GITHUB_EMAIL=korolev.yasha@gmail.com
-$ export GITHUB_TOKEN=ae541d5bc326278a7543380a65d13c73e349abfe
-$ alias edit=nano
+Установка переменных
+```ShellSession 
+$ export GITHUB_USERNAME=YashaKorolev                               # Установка переменной GITHUB_USERNAME
+$ export GITHUB_EMAIL=korolev.yasha@gmail.com                       # Установка переменной GITHUB_EMAIL
+$ export GITHUB_TOKEN=ae541d5bc326278a7543380a65d13c73e349abfe      # Установка переменной GITHUB_TOKEN
+$ alias edit=nano                                                   # Установка синонима команды edit
 ```
-
+Подготовка рабочего места
 ```ShellSession
-$ cd ${GITHUB_USERNAME}/workspace
-$ source scripts/activate
+$ cd ${GITHUB_USERNAME}/workspace                     # Переход в папку workspace
+$ source scripts/activate                             # Выполнение скрипта подготовки
 ```
-
+Конфигурация hub
 ```ShellSession
-$ mkdir ~/.config
+$ mkdir ~/.config                           # Создание папки с конфигами
 mkdir: cannot create directory ‘/home/yasha/.config’: File exists
 
-$ cat > ~/.config/hub <<EOF
+$ cat > ~/.config/hub <<EOF                  # Создание файла конфига hub и запись в него
 github.com:
 - user: ${GITHUB_USERNAME}
   oauth_token: ${GITHUB_TOKEN}
   protocol: https
 EOF
-$ git config --global hub.protocol https
+$ git config --global hub.protocol https     # Установка переменной конфига git
 ```
-
+Работа с git
 ```ShellSession
-$ mkdir projects/lab02 && cd projects/lab02
-$ git init
+$ mkdir projects/lab02 && cd projects/lab02         # Создание папки и переход в нее
+$ git init                                          # Создание пустого репозиторий
 Initialized empty Git repository in /home/yasha/YashaKorolev/workspace/projects/lab02/.git/
 
-$ git config --global user.name ${GITHUB_USERNAME}
-$ git config --global user.email ${GITHUB_EMAIL}
+$ git config --global user.name ${GITHUB_USERNAME}     # Установка переменной конфига user.name для git
+$ git config --global user.email ${GITHUB_EMAIL}       # Установка переменной конфига user.email для git
 # check your git global settings
-$ git config -e --global
+$ git config -e --global                              # Вывод всего конфига из git
 [hub]
         protocol = https
 [user]
         name = YashaKorolev
         email = korolev.yasha@gmail.com
         
-$ git remote add origin https://github.com/${GITHUB_USERNAME}/lab02.git
-$ git pull origin master
+$ git remote add origin https://github.com/${GITHUB_USERNAME}/lab02.git    # Добавление ссылки на репозиторий на гитхабе
+$ git pull origin master                                                     # Перенос изменения с гитхаба
 remote: Enumerating objects: 3, done.
 remote: Counting objects: 100% (3/3), done.
 remote: Compressing objects: 100% (2/2), done.
@@ -66,8 +66,8 @@ Unpacking objects: 100% (3/3), done.
 From https://github.com/YashaKorolev/lab02
  * branch            master     -> FETCH_HEAD
 
-$ touch README.md
-$ git status
+$ touch README.md                                           # Создать README.md
+$ git status                                                # Посмотреть статус репозитория
 On branch master
 Untracked files:
   (use "git add <file>..." to include in what will be committed)
@@ -76,13 +76,13 @@ Untracked files:
 
 nothing added to commit but untracked files present (use "git add" to track)
 
-$ git add README.md
-$ git commit -m"added README.md"
+$ git add README.md                               # Добавить README.md в список фиксированных
+$ git commit -m"added README.md"                 # Закоммитить фиксированные изменения
 [master 645f5bd] added README.md
  1 file changed, 0 insertions(+), 0 deletions(-)
  create mode 100644 README.md
 
-$ git push origin master
+$ git push origin master                        # Отправить изменения на гитхаб
 Username for 'https://github.com': YashaKorolev
 Password for 'https://YashaKorolev@github.com': 
 Enumerating objects: 4, done.
@@ -105,9 +105,9 @@ To https://github.com/YashaKorolev/lab02.git
 *.swp
 .idea/
 ```
-
+Перенос изменений с гитхаба
 ```ShellSession
-$ git pull origin master
+$ git pull origin master                      # Перенос изменений с гитхаба
 remote: Enumerating objects: 4, done.
 remote: Counting objects: 100% (4/4), done.
 remote: Compressing objects: 100% (2/2), done.
@@ -122,7 +122,7 @@ Fast-forward
  1 file changed, 4 insertions(+)
  create mode 100644 .gitignore
 
-$ git log
+$ git log                # Просмотр коммитов
 commit f8cf00a5ffd3bf079e1021eea37b9a9069cf94e6 (HEAD -> master, origin/master)
 Author: YashaKorolev <47750082+YashaKorolev@users.noreply.github.com>
 Date:   Mon Jun 10 19:43:39 2019 +0300
@@ -142,12 +142,12 @@ Date:   Mon Jun 10 19:27:54 2019 +0300
     Initial commit
 
 ```
-
+Создание папок и файла с кодом
 ```ShellSession
-$ mkdir sources
-$ mkdir include
-$ mkdir examples
-$ cat > sources/print.cpp <<EOF
+$ mkdir sources         # Создание папки sources
+$ mkdir include         # Создание папки include
+$ mkdir examples        # Создание папки examples
+$ cat > sources/print.cpp <<EOF   # Запись кода в файл
 #include <print.hpp>
 
 void print(const std::string& text, std::ostream& out)
@@ -161,9 +161,9 @@ void print(const std::string& text, std::ofstream& out)
 }
 EOF
 ```
-
+Создание файла с кодом
 ```ShellSession
-$ cat > include/print.hpp <<EOF
+$ cat > include/print.hpp <<EOF       # Запись кода в файл
 #include <fstream>
 #include <iostream>
 #include <string>
@@ -172,9 +172,9 @@ void print(const std::string& text, std::ofstream& out);
 void print(const std::string& text, std::ostream& out = std::cout);
 EOF
 ```
-
+Создание файла с кодом
 ```ShellSession
-$ cat > examples/example1.cpp <<EOF
+$ cat > examples/example1.cpp <<EOF     # Запись кода в файл
 #include <print.hpp>
 
 int main(int argc, char** argv)
@@ -183,9 +183,9 @@ int main(int argc, char** argv)
 }
 EOF
 ```
-
+Создание файла с кодом
 ```ShellSession
-$ cat > examples/example2.cpp <<EOF
+$ cat > examples/example2.cpp <<EOF            # Запись кода в файл 
 #include <print.hpp>
 
 #include <fstream>
@@ -197,13 +197,13 @@ int main(int argc, char** argv)
 }
 EOF
 ```
-
+Редактирование README.md
 ```ShellSession
-$ edit README.md
+$ edit README.md          # Редактировать README.md
 ```
-
+Просмотр состояния репозитория и отправка изменений на гитхаб
 ```ShellSession
-$ git status
+$ git status               # Просмотр статуса репозитория
 On branch master
 Untracked files:
   (use "git add <file>..." to include in what will be committed)
@@ -214,8 +214,8 @@ Untracked files:
 
 nothing added to commit but untracked files present (use "git add" to track)
 
-$ git add .
-$ git commit -m"added sources"
+$ git add .                 # Фиксация всех изменений
+$ git commit -m"added sources"      # Коммит зафиксированных изменений
 [master e4c22c1] added sources
  4 files changed, 32 insertions(+)
  create mode 100644 examples/example1.cpp
@@ -223,7 +223,7 @@ $ git commit -m"added sources"
  create mode 100644 include/print.hpp
  create mode 100644 sources/print.cpp
 
-$ git push origin master
+$ git push origin master                   # Отправка изменений на гитхаб
 Username for 'https://github.com': YashaKorolev
 Password for 'https://YashaKorolev@github.com': 
 Enumerating objects: 10, done.
